@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 1 web_server_local v3.4-51-g506ea660
+=======
+1 wifi_softAP v3.4-51-g506ea660
+>>>>>>> 69a6eba181eb3b1bc9067c07e1af105abf7153a0

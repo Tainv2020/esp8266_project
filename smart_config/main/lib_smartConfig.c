@@ -1,12 +1,5 @@
-/* Esptouch example
 
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
-
+/*************************************** INCLUDE **************************************************/
 #include <string.h>
 #include <stdlib.h>
 #include "freertos/FreeRTOS.h"
@@ -21,6 +14,9 @@
 #include "esp_smartconfig.h"
 #include "smartconfig_ack.h"
 
+#include "lib_smartConfig.h"
+
+/*************************************** DEFINE **************************************************/
 /* The examples use smartconfig type that you can set via project configuration menu.
 
    If you'd rather not, just change the below entries to enum with
@@ -28,6 +24,7 @@
 */
 #define EXAMPLE_ESP_SMARTCOFNIG_TYPE      CONFIG_ESP_SMARTCONFIG_TYPE
 
+/*************************************** LOCAL VARIABLE ******************************************/
 /* FreeRTOS event group to signal when we are connected & ready to make a request */
 static EventGroupHandle_t s_wifi_event_group;
 
@@ -38,8 +35,15 @@ static const int CONNECTED_BIT = BIT0;
 static const int ESPTOUCH_DONE_BIT = BIT1;
 static const char* TAG = "smartconfig_example";
 
+/*************************************** GLOBAL VARIABLE *****************************************/
+
+/*************************************** DEFINE FUNCTION *****************************************/
 static void smartconfig_example_task(void* parm);
 
+static void event_handler(void* arg, esp_event_base_t event_base,
+                          int32_t event_id, void* event_data);
+
+/***************************************  FUNCTION **********************************************/
 static void event_handler(void* arg, esp_event_base_t event_base,
                           int32_t event_id, void* event_data)
 {
@@ -89,25 +93,6 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-static void initialise_wifi(void)
-{
-    tcpip_adapter_init();
-    s_wifi_event_group = xEventGroupCreate();
-
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-    ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_register(SC_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL));
-
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
-    ESP_ERROR_CHECK(esp_wifi_start());
-}
-
 static void smartconfig_example_task(void* parm)
 {
     EventBits_t uxBits;
@@ -130,9 +115,22 @@ static void smartconfig_example_task(void* parm)
     }
 }
 
-void app_main()
+void initialise_wifi(void)
 {
     ESP_ERROR_CHECK(nvs_flash_init());
-    initialise_wifi();
-}
+    tcpip_adapter_init();
+    s_wifi_event_group = xEventGroupCreate();
 
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+    ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_register(SC_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL));
+
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
+    ESP_ERROR_CHECK(esp_wifi_start());
+}
