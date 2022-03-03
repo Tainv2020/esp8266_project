@@ -23,8 +23,6 @@
 #include "nvs.h"
 #include <esp_http_server.h>
 
-#include "lib_ws2812b.h"
-
 /* The examples use WiFi configuration that you can set via project configuration menu.
 
    If you'd rather not, just change the below entries to strings with
