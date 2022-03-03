@@ -23,6 +23,8 @@
 #include "nvs.h"
 #include <esp_http_server.h>
 
+#include "lib_ws2812b.h"
+
 /* The examples use WiFi configuration that you can set via project configuration menu.
 
    If you'd rather not, just change the below entries to strings with
@@ -94,7 +96,7 @@ httpd_uri_t task1 = {
     .handler   = task1_handler,
     /* Let's pass response string in user
      * context to demonstrate it's usage */
-    .user_ctx  = WEB_ROOT
+    .user_ctx  = NULL
 };
 
 /* An HTTP GET handler */
@@ -119,7 +121,7 @@ httpd_uri_t task2 = {
     .handler   = task2_handler,
     /* Let's pass response string in user
      * context to demonstrate it's usage */
-    .user_ctx  = WEB_ROOT
+    .user_ctx  = NULL
 };
 
 /* An HTTP GET handler */
@@ -144,7 +146,7 @@ httpd_uri_t task3 = {
     .handler   = task3_handler,
     /* Let's pass response string in user
      * context to demonstrate it's usage */
-    .user_ctx  = WEB_ROOT
+    .user_ctx  = NULL
 };
 
 httpd_handle_t start_webserver(void)

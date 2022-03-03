@@ -1,3 +1,3 @@
-set(COMPONENT_SRCS "softap_example_main.c")
+set(COMPONENT_SRCS "web_server_local.c")
 
 register_component()
