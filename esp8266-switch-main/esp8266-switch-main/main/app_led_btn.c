@@ -23,7 +23,7 @@ static const char* TAG = "button_led";
 #if TOUCHS_NUMBER > 0
 static const uint8_t m_board_touch_list[TOUCHS_NUMBER] = TOUCHS_LIST;
 static const uint8_t m_board_touch_mask[TOUCHS_NUMBER] = MASK_LIST;
-static const uint8_t m_board_led_mask[TOUCHS_NUMBER] = MASK_LIST;
+// static const uint8_t m_board_led_mask[TOUCHS_NUMBER] = MASK_LIST;
 #endif
 
 static void button_action_callback(int pin, int tick);
@@ -223,7 +223,7 @@ void app_led_set_effect_blink(uint8_t m_led_mask, int interval)
 
 void app_led_btn_init(void)
 {
-    for(int i=0;i<TOUCHS_NUMBER;i++){
+    for(uint8_t i=0;i<TOUCHS_NUMBER;i++){
         char name[10];
         sprintf(name, "xTimer[%d]", i); 
         xTimer[i] = xTimerCreate(name,                      // Just a text name, not used by the kernel.

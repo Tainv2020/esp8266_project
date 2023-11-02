@@ -1,0 +1,12 @@
+[submodule "extras/jsmn/jsmn"]
+	path = extras/jsmn/jsmn
+	url = https://github.com/zserge/jsmn.git
+[submodule "extras/spiffs/spiffs"]
+	path = extras/spiffs/spiffs
+	url = https://github.com/pellepl/spiffs.git
+[submodule "tests/unity"]
+	path = tests/unity
+	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "tests/fs-test"]
+	path = tests/fs-test
+	url = https://github.com/sheinz/fs-test

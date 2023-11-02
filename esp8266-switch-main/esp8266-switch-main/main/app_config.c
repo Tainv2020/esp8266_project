@@ -26,7 +26,7 @@ static EventGroupHandle_t wifi_event_group;
 static const int WIFI_STA_HTTP_DONE_BIT = BIT0;
 static const int WIFI_STA_CONNECTED_BIT = BIT1;
 static const int WIFI_STA_RECV_WIFI_INFO_BIT = BIT2;
-static const int WIFI_STA_ESPTOUCH_DONE_BIT =  BIT3;
+// static const int WIFI_STA_ESPTOUCH_DONE_BIT =  BIT3;
 
 extern char HOMEID[50];
 extern char USERID[50];
